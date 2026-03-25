@@ -76,4 +76,5 @@ if password:
     formatted_time = format_time(crack_time_seconds)
 
     st.write(f"⏳ Estimated Time to Crack: **{formatted_time}**")
-st.write("App is running...")
+if __name__ == "__main__":
+    pass
