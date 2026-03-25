@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> a241cb2c807d029135e6f2057dfd7f12bffd4764
 import streamlit as st
 import re
 import string
