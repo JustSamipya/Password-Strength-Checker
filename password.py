@@ -1,4 +1,3 @@
-# filename: password_strength_app.py
 import streamlit as st
 import re
 import string
@@ -42,7 +41,7 @@ def estimate_crack_time(password):
         return 0
 
     combinations = charset ** length
-    guesses_per_second = 1_000_000_000  # 1 billion guesses/sec
+    guesses_per_second = 1000000000  # 1 billion guesses/sec
 
     return combinations / guesses_per_second
 
