@@ -1,4 +1,4 @@
-# filename: password_strength_app.py
+
 import streamlit as st
 import re
 import string
@@ -25,24 +25,24 @@ def check_password_strength(password):
 
 # Function to estimate crack time
 def estimate_crack_time(password):
-    charset = 0
+    total = 0
 
     if any(c.islower() for c in password):
-        charset += 26
+        total += 26
     if any(c.isupper() for c in password):
-        charset += 26
+        total += 26
     if any(c.isdigit() for c in password):
-        charset += 10
+        total += 10
     if any(c in string.punctuation for c in password):
-        charset += len(string.punctuation)
+        total += 32
 
     length = len(password)
 
-    if charset == 0:
+    if total == 0:
         return 0
 
-    combinations = charset ** length
-    guesses_per_second = 1_000_000_000  # 1 billion guesses/sec
+    combinations = total ** length
+    guesses_per_second = 1000000000  # 1 billion guesses/sec
 
     return combinations / guesses_per_second
 
@@ -76,5 +76,4 @@ if password:
     formatted_time = format_time(crack_time_seconds)
 
     st.write(f"⏳ Estimated Time to Crack: **{formatted_time}**")
-if __name__ == "__main__":
-    pass
+        
