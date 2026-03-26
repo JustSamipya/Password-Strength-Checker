@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> a241cb2c807d029135e6f2057dfd7f12bffd4764
 import streamlit as st
 import re
 import string
@@ -37,18 +33,14 @@ def estimate_crack_time(password):
     if any(c.isdigit() for c in password):
         total += 10
     if any(c in string.punctuation for c in password):
-        total += 32
+        total += len(string.punctuation)
 
     length = len(password)
 
     if total == 0:
         return 0
 
-<<<<<<< HEAD
     combinations = total ** length
-=======
-    combinations = charset ** length
->>>>>>> a241cb2c807d029135e6f2057dfd7f12bffd4764
     guesses_per_second = 1000000000  # 1 billion guesses/sec
 
     return combinations / guesses_per_second
@@ -83,9 +75,5 @@ if password:
     formatted_time = format_time(crack_time_seconds)
 
     st.write(f"⏳ Estimated Time to Crack: **{formatted_time}**")
-<<<<<<< HEAD
-        
-=======
 if __name__ == "__main__":
     pass
->>>>>>> a241cb2c807d029135e6f2057dfd7f12bffd4764
