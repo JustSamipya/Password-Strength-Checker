@@ -1,10 +1,9 @@
 import streamlit as st
 import re
 import string
-import math
 import hashlib
 import requests
-import matplotlib.pyplot as plt
+
 
 # -------------------------------
 # Password Strength Function
@@ -108,25 +107,6 @@ def check_pwned(password):
     return 0
 
 
-# -------------------------------
-# Graph Function
-# -------------------------------
-def plot_crack_time(password):
-    lengths = list(range(4, 16))
-    times = []
-
-    for l in lengths:
-        test_pass = password[:l] if len(password) >= l else password + "a"*(l-len(password))
-        times.append(estimate_crack_time(test_pass))
-
-    plt.figure()
-    plt.plot(lengths, times)
-    plt.xlabel("Password Length")
-    plt.ylabel("Crack Time (seconds)")
-    plt.title("Password Length vs Crack Time")
-    plt.yscale("log")
-
-    return plt
 
 
 # -------------------------------
@@ -181,13 +161,7 @@ if password:
     else:
         st.success("✅ This password was NOT found in known breaches.")
 
-    # -------------------------------
-    # 📊 GRAPH
-    # -------------------------------
-    st.subheader("📊 Password Analysis Graph")
 
-    fig = plot_crack_time(password)
-    st.pyplot(fig)
 
 # -------------------------------
 if __name__ == "__main__":
