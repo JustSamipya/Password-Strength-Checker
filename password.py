@@ -41,6 +41,10 @@ def estimate_crack_time(password):
         return 0
 
     combinations = total ** length
+<<<<<<< HEAD
+=======
+    combinations = total ** length
+>>>>>>> df6a082174014ebd8ee338e757838c296e945dea
     guesses_per_second = 1000000000  # 1 billion guesses/sec
 
     return combinations / guesses_per_second
