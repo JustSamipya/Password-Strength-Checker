@@ -5,24 +5,41 @@ import string
 # Function to check password strength
 def check_password_strength(password):
     strength = 0
+    feedback = []
 
+    # Length check
     if len(password) >= 8:
         strength += 1
+    else:
+        feedback.append("Use at least 8 characters.")
+
+    # Lower + Upper case
     if re.search(r'[a-z]', password) and re.search(r'[A-Z]', password):
         strength += 1
+    else:
+        feedback.append("Include both uppercase and lowercase letters.")
+
+    # Digits
     if re.search(r'\d', password):
         strength += 1
-    if re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
-        strength += 1
-
-    if strength <= 1:
-        return "Weak 🔴"
-    elif strength == 2 or strength == 3:
-        return "Medium 🟠"
     else:
-        return "Strong 🟢"
+        feedback.append("Add at least one number (0-9).")
 
-# Function to estimate crack time
+    # Special characters
+    if re.search(r'[!@#$%^&*(),.?\":{}|<>]', password):
+        strength += 1
+    else:
+        feedback.append("Include at least one special character (!@#$...).")
+
+    # Strength label
+    if strength <= 1:
+        label = "Weak 🔴"
+    elif strength == 2 or strength == 3:
+        label = "Medium 🟠"
+    else:
+        label = "Strong 🟢"
+
+    return label, feedback
 def estimate_crack_time(password):
     total = 0
 
@@ -41,10 +58,6 @@ def estimate_crack_time(password):
         return 0
 
     combinations = total ** length
-<<<<<<< HEAD
-=======
-    combinations = total ** length
->>>>>>> df6a082174014ebd8ee338e757838c296e945dea
     guesses_per_second = 1000000000  # 1 billion guesses/sec
 
     return combinations / guesses_per_second
