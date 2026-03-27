@@ -89,18 +89,18 @@ def format_time(seconds):
 
 def ai_analysis(password):
     prompt = f"""
-    Analyze this password: {password}
-    Check: predictability, common patterns, guessability.
-    Return: Strength (Weak/Medium/Strong), Reason, Suggested improvement.
-    """
-    
-    response = client.models.generate_content(
-        model="gemini-2.5-flash",  # Gemini model name
-        contents=prompt,
-        max_output_tokens=150
-    )
-    
-    return response.text
+Analyze this password: {password}
+Check: predictability, common patterns, guessability.
+Return: Strength (Weak/Medium/Strong), Reason, Suggested improvement.
+"""
+    try:
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt
+        )
+        return response.text
+    except Exception as e:
+        return f"Error calling Gemini API: {e}"
 # -------------------------------
 # HIBP Breach Check (SAFE METHOD)
 # -------------------------------
