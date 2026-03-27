@@ -3,8 +3,10 @@ import re
 import string
 import hashlib
 import requests
+from google import genai
+import os
 
-
+client = genai.Client(api_key=os.getenv("gemini_key"))
 # -------------------------------
 # Password Strength Function
 # -------------------------------
@@ -83,7 +85,22 @@ def format_time(seconds):
     else:
         return f"{seconds/31536000:.2f} years"
 
+# Ai Analysis
 
+def ai_analysis(password):
+    prompt = f"""
+    Analyze this password: {password}
+    Check: predictability, common patterns, guessability.
+    Return: Strength (Weak/Medium/Strong), Reason, Suggested improvement.
+    """
+    
+    response = client.models.generate_content(
+        model="gemini-2.5-flash",  # Gemini model name
+        contents=prompt,
+        max_output_tokens=150
+    )
+    
+    return response.text
 # -------------------------------
 # HIBP Breach Check (SAFE METHOD)
 # -------------------------------
@@ -160,6 +177,9 @@ if password:
         st.error(f"⚠️ This password has been found {breach_count} times in data breaches!")
     else:
         st.success("✅ This password was NOT found in known breaches.")
+    
+    st.subheader("🤖 AI Analysis")
+    st.text(ai_analysis(password))
 
 
 
