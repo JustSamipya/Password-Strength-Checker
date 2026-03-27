@@ -91,7 +91,7 @@ def ai_analysis(password):
     prompt = f"""
 Analyze this password: {password}
 Check: predictability, common patterns, guessability.
-Return: Strength (Weak/Medium/Strong), Reason, Suggested improvement.
+Return: Strength (Weak/Medium/Strong), Reason, Suggested improvement. keep the conversation very short
 """
     try:
         response = client.models.generate_content(
