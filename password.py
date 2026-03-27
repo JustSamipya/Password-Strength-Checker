@@ -6,7 +6,7 @@ import requests
 from google import genai
 import os
 
-client = genai.Client(api_key=st.secrets[""])
+client = genai.Client(api_key=st.secrets["gemini_key"])
 # -------------------------------
 # Password Strength Function
 # -------------------------------
