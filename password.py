@@ -4,7 +4,7 @@ import string
 import hashlib
 import requests
 from google import genai
-import os
+
 
 client = genai.Client(api_key=st.secrets["gemini_key"])
 # -------------------------------
@@ -92,7 +92,7 @@ def ai_analysis(password):
 Analyze this password: {password}
 Check: predictability, common patterns, guessability.
 Return: Strength (Weak/Medium/Strong), Reason, Suggested improvement.
- keep the conversation very short and suggest a password on the basis of given password to make it more stronger
+ keep the conversation short and suggest a password on the basis of given password to make it more stronger
 """
     try:
         response = client.models.generate_content(
