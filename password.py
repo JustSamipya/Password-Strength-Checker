@@ -4,8 +4,8 @@ import string
 import hashlib
 import requests
 from google import genai
-
-
+import math
+import pandas as pd
 client = genai.Client(api_key=st.secrets["gemini_key"])
 # -------------------------------
 # Password Strength Function
@@ -127,6 +127,7 @@ def check_pwned(password):
 
 
 
+
 # -------------------------------
 # UI
 # -------------------------------
@@ -140,6 +141,18 @@ password = st.text_input(
 )
 
 common_passwords = ["123456", "password", "qwerty", "admin", "abc123"]
+
+times = {
+    "Your Password": estimate_crack_time(password),
+    "Weak Example": 10,
+    "Medium Example": 10_000,
+    "Strong Example": 10_000_000_000
+}
+
+df = pd.DataFrame({
+    "Type": list(times.keys()),
+    "Seconds": [math.log10(t+1) for t in times.values()]
+})
 
 # -------------------------------
 # MAIN
@@ -164,6 +177,7 @@ if password:
     # Crack time
     seconds = estimate_crack_time(password)
     st.write(f"⏳ Crack Time: **{format_time(seconds)}**")
+    st.bar_chart(df.set_index("Type"))
 
     # -------------------------------
     # 🌐 BREACH CHECK
